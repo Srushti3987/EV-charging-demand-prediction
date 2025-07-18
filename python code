@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load dataset (replace path)
-df = pd.read_csv("ev_charging_data.csv")
+df = pd.read_csv("3ae033f50fa345051652.csv")
 
 # View basic info
 print(df.head())
@@ -25,9 +25,11 @@ plt.ylabel("Charging Sessions")
 plt.show()
 
 # Charging demand by day
+df['timestamp'] = pd.to_datetime(df['Date'])
 df['day'] = df['timestamp'].dt.dayofweek
 sns.countplot(x='day', data=df)
 plt.title("Charging Demand by Day of Week")
+
 plt.xlabel("Day of Week (0=Monday)")
 plt.ylabel("Sessions")
 plt.show()
