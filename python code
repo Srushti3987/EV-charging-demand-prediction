@@ -1,0 +1,33 @@
+# Import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset (replace path)
+df = pd.read_csv("ev_charging_data.csv")
+
+# View basic info
+print(df.head())
+print(df.info())
+
+# Check for missing values
+print(df.isnull().sum())
+
+# Convert time column if needed
+df['timestamp'] = pd.to_datetime(df['timestamp'])
+
+# Plot charging demand by time
+df['hour'] = df['timestamp'].dt.hour
+sns.countplot(x='hour', data=df)
+plt.title("Charging Demand by Hour")
+plt.xlabel("Hour of Day")
+plt.ylabel("Charging Sessions")
+plt.show()
+
+# Charging demand by day
+df['day'] = df['timestamp'].dt.dayofweek
+sns.countplot(x='day', data=df)
+plt.title("Charging Demand by Day of Week")
+plt.xlabel("Day of Week (0=Monday)")
+plt.ylabel("Sessions")
+plt.show()
